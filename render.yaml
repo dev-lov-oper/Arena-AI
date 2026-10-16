@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: arena-ai
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: npm install && npm run build
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: DATA_DIR
+        value: /var/data
+      - key: DB_PATH
+        value: /var/data/arena.sqlite
+    disk:
+      name: arena-sqlite-disk
+      mountPath: /var/data
+      sizeGB: 1

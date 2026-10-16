@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  arena-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: arena-ai:latest
+    container_name: arena_ai_app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATA_DIR=/data
+      - DB_PATH=/data/arena.sqlite
+    volumes:
+      - arena_data:/data
+
+volumes:
+  arena_data:
+    name: arena_ai_sqlite_data
